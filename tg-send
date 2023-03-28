@@ -1,0 +1,19 @@
+#!/bin/bash
+
+TOKEN="$(./kpass tg-bot -sa password)"
+CHAT_ID="$(./kpass tg-bot -sa username)"
+LIMIT=10
+
+getopts "r" opt
+if [ "$opt" = 'r' ]; then
+	curl -s "https://api.telegram.org/bot${TOKEN}/getChatHistory" \
+		-d "chat_id=${CHAT_ID}" -d "limit=${LIMIT}"
+
+	echo "https://api.telegram.org/bot${TOKEN}/getChatHistory"
+	echo "chat_id=${CHAT_ID}"
+
+	exit
+fi
+
+curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" \
+	-d chat_id="$CHAT_ID" -d text="$(cat -)"

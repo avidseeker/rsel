@@ -1,0 +1,6 @@
+#!/bin/sh
+
+VAULT="$HOME/vault"
+DB=low.kdbx
+
+keepassxc-cli show "$VAULT/$DB" -k "$VAULT/key.keyx" --no-password "$@"
